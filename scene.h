@@ -24,7 +24,7 @@ public:
 	Light* GetLightHead();
 	Color GetBGColor();
 	Camera* GetCamera();
-	void CreateScene(std::string file);
+	void CreateScene(string file);
 	Object* FindNearestObject(Vector3 ray_O, Vector3 ray_V);
 	Light* FindNearestLight(Vector3 ray_O, Vector3 ray_V);
 };

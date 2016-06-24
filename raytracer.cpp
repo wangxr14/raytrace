@@ -8,6 +8,7 @@
 #define HASH_FAC 7
 #define HASH_MOD 10000007
 
+//计算漫反射光线
 Color Raytracer::CalnDiffusion( Object* obj , int* hash )
 {
 	Color color = obj->GetMaterial()->color;
@@ -39,7 +40,7 @@ Color Raytracer::CalnDiffusion( Object* obj , int* hash )
 
 	return ret;
 }
-
+//计算反射光线
 Color Raytracer::CalnReflection( Object* obj , Vector3 ray_V , int dep , int* hash )
 {
 	ray_V = ray_V.Reflect( obj->crash.N );
@@ -71,7 +72,7 @@ Color Raytracer::CalnReflection( Object* obj , Vector3 ray_V , int dep , int* ha
 	ret = ret * obj->GetMaterial()->color * obj->GetMaterial()->refl / ( 16 * scene.GetCamera()->GetDreflQuality() );
 	return ret;
 }
-
+//计算折射光线
 Color Raytracer::CalnRefraction( Object* obj , Vector3 ray_V , int dep , int* hash )
 {
 	double n = obj->GetMaterial()->rindex;
@@ -85,7 +86,30 @@ Color Raytracer::CalnRefraction( Object* obj , Vector3 ray_V , int dep , int* ha
 	Color trans = Color( exp( absor.r ) , exp( absor.g ) , exp( absor.b ) );
 	return rcol * trans * obj->GetMaterial()->refr;
 }
-
+/*
+对图像中的每一个像素{
+	创建从视点通过该像素的光线
+	初始化最近T 为无限大，最近物体为空值
+	对场景中的每一个物体{
+		如果光线与物体相交{
+			如果交点处的t 比最近T 小{
+				设置最近T 为焦点的t 值
+				设置最近物体为该物体
+			}
+		}
+	}
+	如果最近物体为空值{
+		用背景色填充该像素
+	}
+	否则{
+		对每个光源射出一条光线来检测是否处在阴影中
+		如果表面是反射面，生成反射光；递归
+		如果表面透明，生成折射光；递归
+		使用最近物体和最近T 来计算着色函数
+		以着色函数的结果填充该像素
+	}
+}
+*/
 Color Raytracer::RayTracing( Vector3 ray_O , Vector3 ray_V , int dep , int* hash )
 {
 	if ( dep > MAX_RAYTRACING_DEP ) return Color();
@@ -93,14 +117,14 @@ Color Raytracer::RayTracing( Vector3 ray_O , Vector3 ray_V , int dep , int* hash
 	Color ret;
 	Object* nearest_object = scene.FindNearestObject( ray_O , ray_V );
 	Light* nearest_light = scene.FindNearestLight( ray_O , ray_V );
-
+	//最近的光源
 	if ( nearest_light != NULL && ( nearest_object == NULL || nearest_light->crash_dist < nearest_object->crash.dist ) )
 	{
 		if ( hash != NULL ) *hash = ( *hash + nearest_light->GetSample() ) % HASH_MOD;
 		ret += nearest_light->GetColor();
 		Color col = nearest_light->GetColor();
 	}
-
+	//有最近的物体，则计算反射折射漫反射的光
 	if ( nearest_object != NULL )
 	{
 		if ( hash != NULL ) *hash = ( *hash + nearest_object->GetSample() ) % HASH_MOD;
@@ -141,12 +165,14 @@ void Raytracer::Run()
 		cout << "i:" << i << endl;
 	}
 	cout << "emit" << endl;
+	//进行抗锯齿处理，把像素拆分为九小格
 	for (int i = 0; i < sample.size(); ++i)
 	{
 		for (int j = 0; j < sample[i].size(); j++)
 		{
 			if ((i == 0 || sample[i][j] == sample[i - 1][j]) && (i == sample.size() - 1 || sample[i][j] == sample[i + 1][j]) &&
-				(j == 0 || sample[i][j] == sample[i][j - 1]) && (j == sample[i].size() - 1 || sample[i][j] == sample[i][j + 1])) continue;
+				(j == 0 || sample[i][j] == sample[i][j - 1]) && (j == sample[i].size() - 1 || sample[i][j] == sample[i][j + 1])) 
+				continue;
 
 			Color color;
 			for (int r = -1; r <= 1; r++)

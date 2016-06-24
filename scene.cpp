@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Scene::Scene(void)
+Scene::Scene()
 {
 	object_head = NULL;
 	light_head = NULL;
@@ -11,7 +11,7 @@ Scene::Scene(void)
 }
 
 
-Scene::~Scene(void)
+Scene::~Scene()
 {
 	while(object_head != NULL)
 	{
@@ -52,12 +52,12 @@ Camera* Scene::GetCamera()
 	return camera;
 }
 
-void Scene::CreateScene(std::string file)
+void Scene::CreateScene(string file)
 {
 	srand(0);
 	std::ifstream fin(file.c_str());
 
-	std::string obj;
+	string obj;
 	while ( fin >> obj )
 	{
 		Object* new_object = NULL;

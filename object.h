@@ -24,7 +24,7 @@ public:
 
 struct Crash
 {
-	Vector3 N, C;
+	Vector3 N, C;//相交的点、相交的这根光线
 	double dist;
 	bool front;
 };

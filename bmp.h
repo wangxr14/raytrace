@@ -8,6 +8,7 @@
 #include <iostream>
 using namespace std;
 
+//利用opencv来显示图像、保存图像
 class Bmp
 {
     IplImage *image;

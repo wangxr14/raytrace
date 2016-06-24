@@ -130,7 +130,7 @@ Color Sphere::GetTexture()
 {
 	Vector3 I = ( crash.C - O ).GetUnitVector();
 	double a = acos( -I.Dot( De ) );
-	double b = acos( std::min( std::max( I.Dot( Dc ) / sin( a ) , -1.0 ) , 1.0 ) );
+	double b = acos( min( max( I.Dot( Dc ) / sin( a ) , -1.0 ) , 1.0 ) );
 	double u = a / PI , v = b / 2 / PI;
 	if ( I.Dot( Dc * De ) < 0 ) v = 1 - v;
 	return material->texture->GetPixel( u , v , false );

@@ -52,15 +52,17 @@ bool AreaLight::Collide( Vector3 ray_O , Vector3 ray_V )
 	crash_dist = l;
 	return true;
 }
-
+//软阴影的实现
+//随机选取shade计算阴影系数
 double AreaLight::CalnShade( Vector3 C , Object* object_head , int shade_quality )
 {
 	int shade = 0;
 	
-	for ( int i = -2 ; i < 2 ; i++ )
-		for ( int j = -2 ; j < 2 ; j++ )
-			for ( int k = 0 ; k < shade_quality ; k++ ) {
-				Vector3 V = O - C + Dx * ( ( ran() + i ) / 2 ) + Dy * ( ( ran() + j ) / 2 );
+	//for ( int i = -2 ; i < 2 ; i++ )
+	//	for ( int j = -2 ; j < 2 ; j++ )
+			for ( int k = 0 ; k < shade_quality ; k++ ) 
+			{
+				Vector3 V = O - C + Dx * ( ( ran() ) / 2 ) + Dy * ( ( ran()  ) / 2 );
 				double dist = V.Module();
 
 				for ( Object* now = object_head ; now != NULL ; now = now->GetNext() )
@@ -70,5 +72,5 @@ double AreaLight::CalnShade( Vector3 C , Object* object_head , int shade_quality
 					}
 			}
 	
-	return 1 - ( double ) shade / ( 16.0 * shade_quality );
+	return 1 - ( double ) shade / (  shade_quality );
 }

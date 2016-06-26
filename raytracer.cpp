@@ -4,7 +4,7 @@
 #define eps 1e-6
 #define SPEC_POWER 20
 #define MAX_DREFL_DEP 2
-#define MAX_RAYTRACING_DEP 10
+#define MAX_RAYTRACING_DEP 5
 #define HASH_FAC 7
 #define HASH_MOD 10000007
 
@@ -12,10 +12,12 @@
 Color Raytracer::CalnDiffusion( Object* obj , int* hash )
 {
 	Color color = obj->GetMaterial()->color;
-	if ( obj->GetMaterial()->texture != NULL ) color = color * obj->GetTexture();
+	//如果有贴图
+	if ( obj->GetMaterial()->texture != NULL ) color = obj->GetTexture();
 	Color ret = color * scene.GetBGColor() * obj->GetMaterial()->diff;
 	for ( Light* light = scene.GetLightHead() ; light != NULL ; light = light->GetNext() )
 	{
+		//计算阴影系数
 		double shade = light->CalnShade( obj->crash.C , scene.GetObjectHead() , scene.GetCamera()->GetShadeQuality() );
 		if ( shade < eps ) continue;
 		
@@ -86,30 +88,8 @@ Color Raytracer::CalnRefraction( Object* obj , Vector3 ray_V , int dep , int* ha
 	Color trans = Color( exp( absor.r ) , exp( absor.g ) , exp( absor.b ) );
 	return rcol * trans * obj->GetMaterial()->refr;
 }
-/*
-对图像中的每一个像素{
-	创建从视点通过该像素的光线
-	初始化最近T 为无限大，最近物体为空值
-	对场景中的每一个物体{
-		如果光线与物体相交{
-			如果交点处的t 比最近T 小{
-				设置最近T 为焦点的t 值
-				设置最近物体为该物体
-			}
-		}
-	}
-	如果最近物体为空值{
-		用背景色填充该像素
-	}
-	否则{
-		对每个光源射出一条光线来检测是否处在阴影中
-		如果表面是反射面，生成反射光；递归
-		如果表面透明，生成折射光；递归
-		使用最近物体和最近T 来计算着色函数
-		以着色函数的结果填充该像素
-	}
-}
-*/
+
+//进行光线追踪的函数
 Color Raytracer::RayTracing( Vector3 ray_O , Vector3 ray_V , int dep , int* hash )
 {
 	if ( dep > MAX_RAYTRACING_DEP ) return Color();
@@ -117,7 +97,7 @@ Color Raytracer::RayTracing( Vector3 ray_O , Vector3 ray_V , int dep , int* hash
 	Color ret;
 	Object* nearest_object = scene.FindNearestObject( ray_O , ray_V );
 	Light* nearest_light = scene.FindNearestLight( ray_O , ray_V );
-	//最近的光源
+	//有最近的光源直接照射的情况下
 	if ( nearest_light != NULL && ( nearest_object == NULL || nearest_light->crash_dist < nearest_object->crash.dist ) )
 	{
 		if ( hash != NULL ) *hash = ( *hash + nearest_light->GetSample() ) % HASH_MOD;
@@ -165,7 +145,7 @@ void Raytracer::Run()
 		cout << "i:" << i << endl;
 	}
 	cout << "emit" << endl;
-	//进行抗锯齿处理，把像素拆分为九小格
+	//进行抗锯齿处理，根据sample把像素拆分为九小格
 	for (int i = 0; i < sample.size(); ++i)
 	{
 		for (int j = 0; j < sample[i].size(); j++)

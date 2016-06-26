@@ -14,7 +14,7 @@ class Bmp
     IplImage *image;
     string file;
 public:
-    ~Bmp();
+    //~Bmp();
     int Width() const;
     int Height() const;
     string Filename() const;
@@ -25,7 +25,7 @@ public:
     Color GetPixel(const double u, const double v, const bool repeat) const;
     Color GetPixel(const int x, const int y) const;
     void SetPixel(const int x, const int y, const Color &c) const;
-    void Destroy();
+    //void Destroy();
 };
 
 #endif /* defined(__Ray_Tracing__Bmp__) */

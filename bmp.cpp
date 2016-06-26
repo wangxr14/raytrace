@@ -2,11 +2,11 @@
 
 #define Eps 1e-6
 
-Bmp::~Bmp()
-{
-    cvDestroyAllWindows();
-    Destroy();
-}
+//Bmp::~Bmp()
+//{
+//   cvDestroyAllWindows();
+//    Destroy();
+//}
 int Bmp::Width() const
 {
     if (image == NULL) return 0;
@@ -97,7 +97,7 @@ void Bmp::SetPixel(const int x, const int y, const Color &c) const
 {
     cvSet2D(image, x, y, CV_RGB(c.r * 255, c.g * 255, c.b * 255));
 }
-void Bmp::Destroy()
-{
-    if (image != NULL) cvReleaseImage(&image);
-}
+//void Bmp::Destroy()
+//{
+//   if (image != NULL) cvReleaseImage(&image);
+//}

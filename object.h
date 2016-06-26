@@ -15,7 +15,7 @@ class Material
 public:
     Material();
 	Color color, absor;
-	double refl, refr, diff, spec;
+	double refl, refr, diff, spec;//反射、折射、漫反射、镜面漫反射
 	double rindex;
 	double drefl;
 	Bmp* texture;
@@ -25,7 +25,7 @@ public:
 struct Crash
 {
 	Vector3 N, C;//相交的点、相交的这根光线
-	double dist;
+	double dist;//距离
 	bool front;
 };
 

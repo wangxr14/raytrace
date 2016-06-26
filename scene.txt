@@ -13,11 +13,10 @@ camera
 	lens_H= 0.6
 	lens_W= 1.0
 end
-
 light area
 	O= 3 3 3
-	Dx= 1 0 0
-	Dy= 0 1.5 0
+	Dx= 2 0 0
+	Dy= 0 2 0
 	color= 1 1 1
 end
 
@@ -26,8 +25,10 @@ object sphere
 	O= 4 4.5 -1.3
 	R= 0.4
 	color= 0.8 0.5 1
-	spec= 0.5
-	refl= 0
+	diff= 0.3
+	spec= 0
+	refl= 0.1
+	refr= 0.6
 end
 
 object sphere
@@ -41,6 +42,17 @@ object sphere
 	spec= 0.25
 	refl= 0.1
 	drefl= 0
+end
+
+object sphere
+	O= 1.5 5 -1.7
+	R= 0.25
+	color= 0.2 0.5 1
+	diff= 0.3
+	spec= 0
+	refl= 0.1
+	refr= 0.6
+	rindex= 1.4
 end
 
 object plane
@@ -63,4 +75,3 @@ object plane
 	refl= 1
 	drefl= 0
 end
-

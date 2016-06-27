@@ -58,19 +58,17 @@ double AreaLight::CalnShade( Vector3 C , Object* object_head , int shade_quality
 {
 	int shade = 0;
 	
-	//for ( int i = -2 ; i < 2 ; i++ )
-	//	for ( int j = -2 ; j < 2 ; j++ )
-			for ( int k = 0 ; k < shade_quality ; k++ ) 
-			{
-				Vector3 V = O - C + Dx * ( ( ran() ) / 2 ) + Dy * ( ( ran()  ) / 2 );
-				double dist = V.Module();
+	for ( int k = 0 ; k < shade_quality ; k++ ) 
+	{
+		Vector3 V = O - C + Dx * ( ( ran() ) / 2 ) + Dy * ( ( ran()  ) / 2 );
+		double dist = V.Module();
 
-				for ( Object* now = object_head ; now != NULL ; now = now->GetNext() )
-					if ( now->Collide( C , V ) && ( now->crash.dist < dist ) ) {
-						shade++;
-						break;
-					}
+		for ( Object* now = object_head ; now != NULL ; now = now->GetNext() )
+			if ( now->Collide( C , V ) && ( now->crash.dist < dist ) ) {
+				shade++;
+				break;
 			}
+	}
 	
 	return 1 - ( double ) shade / (  shade_quality );
 }

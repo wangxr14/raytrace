@@ -7,6 +7,9 @@
 #define STD_SHADE_QUALITY 4
 #define STD_DREFL_QUALITY 4
 #define STD_SAMPLE_DIST 1
+#define STD_FOCUS_LEN 4
+#define STD_APERTURE 0.8;
+#define ran() ( double( rand() % 32768 ) / 32768 )
 
 Camera::Camera()
 {
@@ -19,7 +22,9 @@ Camera::Camera()
 	shade_quality = STD_SHADE_QUALITY;
 	drefl_quality = STD_DREFL_QUALITY;
 	sample_dist = STD_SAMPLE_DIST;
-	
+
+	aperture = STD_APERTURE;
+	focal_len = STD_FOCUS_LEN;
 }
 
 Camera::~Camera() 
@@ -29,7 +34,18 @@ Camera::~Camera()
 
 Vector3 Camera::Emit(double i, double j)
 {
-	return N + Dy * ( 2 * i / H - 1 ) + Dx * ( 2 * j / W - 1 );
+	return N + Dy * ( 2 * i / H  ) + Dx * ( 2 * j / W );
+}
+
+void Camera::DofEmit(double i, double j, Vector3* dof_O, Vector3* dof_V) {
+	Vector3 focalPoint = O + Emit(i, j) * focal_len;
+	double x, y;
+	do {
+		x = ran() * 2 - 1;
+		y = ran() * 2 - 1;
+	} while (x * x + y * y > 1);
+	*dof_O = O + Dx * aperture * x + Dy * aperture * y;
+	*dof_V = (focalPoint - *dof_O).GetUnitVector();
 }
 
 void Camera::Initialize()

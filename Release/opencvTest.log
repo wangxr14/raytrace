@@ -1,36 +1,21 @@
-﻿Build started 2016/6/26 14:17:43.
+﻿Build started 2016/6/27 11:51:07.
      1>Project "D:\opencv\opencvTest\opencvTest\opencvTest.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt bmp.cpp camera.cpp color.cpp light.cpp main.cpp object.cpp raytracer.cpp scene.cpp Vector3.cpp
-         bmp.cpp
-     1>d:\opencv2.4.12\opencv\build\include\opencv2\flann\logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-     1>bmp.cpp(59): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>bmp.cpp(61): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt camera.cpp main.cpp raytracer.cpp scene.cpp
          camera.cpp
      1>d:\opencv2.4.12\opencv\build\include\opencv2\flann\logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-         color.cpp
-         light.cpp
-     1>d:\opencv2.4.12\opencv\build\include\opencv2\flann\logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
          main.cpp
-         object.cpp
-     1>d:\opencv2.4.12\opencv\build\include\opencv2\flann\logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
          raytracer.cpp
      1>d:\opencv2.4.12\opencv\build\include\opencv2\flann\logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
      1>raytracer.cpp(21): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
      1>raytracer.cpp(132): warning C4018: '<' : signed/unsigned mismatch
-     1>raytracer.cpp(137): warning C4018: '<' : signed/unsigned mismatch
      1>raytracer.cpp(139): warning C4018: '<' : signed/unsigned mismatch
-     1>raytracer.cpp(149): warning C4018: '<' : signed/unsigned mismatch
-     1>raytracer.cpp(151): warning C4018: '<' : signed/unsigned mismatch
+     1>raytracer.cpp(141): warning C4018: '<' : signed/unsigned mismatch
          scene.cpp
      1>d:\opencv2.4.12\opencv\build\include\opencv2\flann\logger.h(66): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(211) : see declaration of 'fopen'
-         Vector3.cpp
        Link:
          D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\opencv\opencvTest\Release\opencvTest.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib opencv_calib3d2412.lib opencv_contrib2412.lib opencv_core2412.lib opencv_features2d2412.lib opencv_flann2412.lib opencv_gpu2412.lib opencv_highgui2412.lib opencv_imgproc2412.lib opencv_legacy2412.lib opencv_ml2412.lib opencv_nonfree2412.lib opencv_objdetect2412.lib opencv_ocl2412.lib opencv_photo2412.lib opencv_stitching2412.lib opencv_superres2412.lib opencv_ts2412.lib opencv_video2412.lib opencv_videostab2412.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\opencv\opencvTest\Release\opencvTest.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\opencv\opencvTest\Release\opencvTest.lib" /MACHINE:X86 /SAFESEH Release\bmp.obj
          Release\camera.obj
@@ -42,8 +27,9 @@
          Release\scene.obj
          Release\Vector3.obj
      1>LINK : fatal error LNK1181: cannot open input file 'opencv_calib3d2412.lib'
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets(607,5): error MSB6006: "link.exe" exited with code 1181.
      1>Done Building Project "D:\opencv\opencvTest\opencvTest\opencvTest.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:10.36
+Time Elapsed 00:00:12.12

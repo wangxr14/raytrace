@@ -2,11 +2,7 @@
 
 #define Eps 1e-6
 
-//Bmp::~Bmp()
-//{
-//   cvDestroyAllWindows();
-//    Destroy();
-//}
+
 int Bmp::Width() const
 {
     if (image == NULL) return 0;
@@ -52,6 +48,7 @@ Color Bmp::GetPixel(const int x, const int y) const
     CvScalar color = cvGet2D(image, x, y);
     return Color((double)color.val[2] / 255, (double)color.val[1] / 255, (double)color.val[0] / 255);
 }
+//ÌùÍ¼
 Color Bmp::GetPixel(const double u, const double v, const bool repeat) const
 {
     double _u = (u - floor(u)) * image->height;

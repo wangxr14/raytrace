@@ -19,8 +19,9 @@ class Camera
 	double shade_quality;
 	double drefl_quality;
 	double sample_dist;
+	
 public:
-
+	double dofSample, aperture, focal_len;//π‚»¶°¢Ωπæ‡
 	Camera();
 	~Camera();
 	Vector3 GetO() { return O; }
@@ -33,6 +34,7 @@ public:
 
 
 	Vector3 Emit(double, double);
+	void DofEmit(double i, double j, Vector3* dof_O, Vector3* dof_V);
 	void Initialize();
 	void Input(string var, stringstream&);
 	void Output(string);

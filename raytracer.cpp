@@ -138,15 +138,47 @@ void Raytracer::Run()
 	{
 		for (int j = 0; j < sample[i].size(); j++)
 		{
+
 			Vector3 ray_V = camera->Emit(i, j);
 			Color color = RayTracing(ray_O, ray_V, 1, &sample[i][j]);
 			camera->SetColor(i, j, color);
+			/*Color color;
+			for (int k = 0; k < count; k++)
+			{
+				int x = rand() % 2*R -R;
+				int y = rand() % 2*R -R;
+				
+				Vector3 ray1 = camera->Emit(i+x, j+y);
+				Vector3 ray2 = camera->focal_point - camera->GetO();
+
+				color += RayTracing(ray_v, ray_o, 1, &sample[i][j]);	
+			}
+			camera->SetColor(i, j, color/count);*/
+			/*if (camera->aperture < eps) 
+			{
+				Vector3 ray_V = camera->Emit(i, j);
+				Color color = RayTracing(ray_O, ray_V, 1, &sample[i][j]);
+				camera->SetColor(i, j, color);
+			}
+			else //景深
+			{
+				int dofSample = camera->dofSample;
+				Color color;
+				for (int k = 0; k < 100; k++) 
+				{
+					Vector3 dof_O, dof_V;
+					camera->DofEmit(i, j, &dof_O, &dof_V);
+					color += RayTracing(dof_O, dof_V, 1, NULL) / dofSample;
+				}
+				
+				camera->SetColor(i, j, color);
+			}*/
 		}
-		cout << "i:" << i << endl;
+		//cout << "i:" << i << endl;
 	}
 	cout << "emit" << endl;
 	//进行抗锯齿处理，根据sample把像素拆分为九小格
-	for (int i = 0; i < sample.size(); ++i)
+	/*for (int i = 0; i < sample.size(); ++i)
 	{
 		for (int j = 0; j < sample[i].size(); j++)
 		{
@@ -163,8 +195,8 @@ void Raytracer::Run()
 				}
 			camera->SetColor(i, j, color);
 		}
-		cout << "i2:" << i << endl;
-	}
+		//cout << "i2:" << i << endl;
+	}*/
 	
 	camera->Output(output);
 }
